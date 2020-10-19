@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ECS
 {
@@ -18,7 +19,9 @@ namespace ECS
             player.Set<InputEventComponent>();
             var playerAnimator = player.Set<AnimatedCharacterComponent>();
             var playerAttack = player.Set<PlayerAttackComponent>();
-
+            playerAttack.timeToAttack = loader.mainData.playerInitData.timeToAttack;
+            playerAttack.timer = playerAttack.timeToAttack;
+            playerAttack.tag = "Player";
             GameObject spawnedPlayerPrefab = GameObject.Instantiate(loader.mainData.playerInitData.playerPrefab,
                 Vector3.zero, Quaternion.identity);
 
@@ -28,7 +31,7 @@ namespace ECS
 
             ///////////////////////////ENEMY//////////////////////////////////////////
             for(int i = 0; i < 3; i++)
-                EnemySpawner(loader, playerMovableComponent, playerAttack, new Vector3(Random.Range(0,3),0,Random.Range(0, 3)));
+                EnemySpawner(loader, playerMovableComponent, playerAttack, new Vector3(Random.Range(0,5),0,Random.Range(0, 5)));
 
         }
 
@@ -40,11 +43,17 @@ namespace ECS
             GameObject spawnedEnemyPrefab = GameObject.Instantiate(loader.mainData.enemyInitData.playerPrefab,
                 spawnPos, Quaternion.identity);
             enemyAnimator.animatorController = spawnedEnemyPrefab.GetComponent<Animator>();
-            var followComponent = enemy.Set<FollowComponent>();
-            followComponent.target = playerMovableComponent.transformCharacter;
-            playerAttack.attackAct += followComponent.PrintAttack;
+
             enemyMovableComponent.speed = loader.mainData.enemyInitData.defaultSpeed;
             enemyMovableComponent.transformCharacter = spawnedEnemyPrefab.transform;
+
+            var followComponent = enemy.Set<FollowComponent>();
+            followComponent.target = playerMovableComponent.transformCharacter;
+            followComponent.navMeshAgent = spawnedEnemyPrefab.GetComponent<NavMeshAgent>();
+            followComponent.navMeshAgent.speed = enemyMovableComponent.speed;
+
+            playerAttack.attackAct += followComponent.PrintAttack;
+            playerAttack.attackAct += enemyAnimator.GetHit;
         }
     }
 }

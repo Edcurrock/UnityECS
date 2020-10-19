@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3216471920199182129, guid: 1cd0e4f8bb8e2714fb462ed683cf6e38, type: 3}
-  defaultSpeed: 2
+  defaultSpeed: 3
+  timeToAttack: 1

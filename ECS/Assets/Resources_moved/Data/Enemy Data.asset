@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Enemy Data
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2227478365637442955, guid: 47de25be73aabf14e913c76a2ecd6aa1, type: 3}
-  defaultSpeed: 1
+  defaultSpeed: 2

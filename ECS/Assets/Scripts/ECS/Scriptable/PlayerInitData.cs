@@ -7,4 +7,5 @@ public class PlayerInitData : ScriptableObject
 {
     public GameObject playerPrefab;
     public float defaultSpeed = 2f;
+    public float timeToAttack = 1f;
 }

@@ -9,13 +9,16 @@ namespace ECS
     {
         public float damage;
         public float damageDistance;
-        
-        public delegate void AttackAction();
+        public float timeToAttack;
+        public float timer;
+        public string tag;
+
+        public delegate void AttackAction(string tag);
         public event AttackAction attackAct;
 
         public void OnAttack()
         {
-            attackAct.Invoke();
+            attackAct.Invoke(tag);
         }
     }
 }

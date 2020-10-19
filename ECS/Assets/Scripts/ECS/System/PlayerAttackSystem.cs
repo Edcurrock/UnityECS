@@ -17,9 +17,15 @@ public class PlayerAttackSystem : IEcsRunSystem
             var playerAnimator = attackFilter.Get3[item];
 
             
-            playerAnimator.animatorController.SetBool("Attack", playerInput.isAttacked);
-            if(playerInput.isAttacked)
+           
+            if(playerAttack.timer <= playerAttack.timeToAttack)
             {
+                playerAttack.timer += Time.deltaTime;
+            }
+            if(playerInput.isAttacked && playerAttack.timer >= playerAttack.timeToAttack)
+            {
+                playerAnimator.animatorController.SetBool("Attack", playerInput.isAttacked);
+                playerAttack.timer = 0;
                 playerAttack.OnAttack();
             }
         }

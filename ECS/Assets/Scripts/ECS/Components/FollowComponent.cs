@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ECS
 {
@@ -9,8 +10,9 @@ namespace ECS
     {
         [EcsIgnoreNullCheck]
         public Transform target;
+        [EcsIgnoreNullCheck]
+        public NavMeshAgent navMeshAgent;
 
-
-        public void PrintAttack() => Debug.Log($"Attacked by {target.name}");
+        public void PrintAttack(string s) => Debug.Log($"Attacked by {target.name}");
     }
 }

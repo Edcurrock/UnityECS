@@ -24,7 +24,7 @@ public class PlayerInputSystem : IEcsRunSystem
         foreach (var i in inputEventsFilter)
         {
             var inputEvent = inputEventsFilter.Get1[i];
-            inputEvent.isAttacked = Input.GetKey("space");
+            inputEvent.isAttacked = Input.GetKeyDown("space");
         }
     }
 }

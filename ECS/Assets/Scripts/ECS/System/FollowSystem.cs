@@ -16,14 +16,16 @@ public class FollowSystem : IEcsRunSystem
             var movableComponent = enemyFollowFilter.Get2[item];
             var direction = followComponent.target.position - movableComponent.transformCharacter.position;
 
-            if (DistanceToTarger(followComponent,movableComponent) >= 1.5f)
-                movableComponent.transformCharacter.position += direction.normalized * (Time.deltaTime * movableComponent.speed);
-            movableComponent.isMoving = DistanceToTarger(followComponent, movableComponent) >= 1.5f;
+            if (DistanceToTarget(followComponent,movableComponent) >= 1.5f)
+            {
+                followComponent.navMeshAgent.SetDestination(followComponent.target.position);    
+            }
+            movableComponent.isMoving = DistanceToTarget(followComponent, movableComponent) >= 1.5f;
             movableComponent.transformCharacter.LookAt(followComponent.target);
         }
     }
 
-    private static float DistanceToTarger(FollowComponent followComponent, MovableComponent movableComponent)
+    private static float DistanceToTarget(FollowComponent followComponent, MovableComponent movableComponent)
     {
         return Vector3.Distance(followComponent.target.position,
                         movableComponent.transformCharacter.position);
