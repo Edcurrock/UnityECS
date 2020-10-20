@@ -18,13 +18,18 @@ public class PlayerInputSystem : IEcsRunSystem
             {
                 var inputEvent = inputEventsFilter.Get1[i];
                 inputEvent.direction = new Vector3(x,0,z);
-                inputEvent.isAttacked = Input.GetKey("space");
             }
         }
         foreach (var i in inputEventsFilter)
         {
             var inputEvent = inputEventsFilter.Get1[i];
-            inputEvent.isAttacked = Input.GetKeyDown("space");
+            inputEvent.isAttacked = Input.GetKeyDown("q");
+        }
+
+        foreach (var i in inputEventsFilter)
+        {
+            var inputEvent = inputEventsFilter.Get1[i];
+            inputEvent.isJumped = Input.GetKeyDown("space");
         }
     }
 }

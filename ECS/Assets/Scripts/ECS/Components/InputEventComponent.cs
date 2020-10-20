@@ -8,5 +8,6 @@ namespace ECS
     {
         public Vector3 direction;
         public bool isAttacked;
+        public bool isJumped;
     }
 }

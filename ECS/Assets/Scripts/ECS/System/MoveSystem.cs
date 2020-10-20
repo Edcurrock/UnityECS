@@ -21,6 +21,10 @@ public class MoveSystem : IEcsRunSystem
                 Time.deltaTime*movableComponent.speed;
             if(inputComponent.direction.normalized != Vector3.zero)
                 movableComponent.transformCharacter.rotation = Quaternion.LookRotation(inputComponent.direction.normalized);
+            if(inputComponent.isJumped)
+            {
+              movableComponent.transformCharacter.GetComponent<Rigidbody>().AddForce(Vector3.up*300f,ForceMode.Impulse);
+            }
           }
         // Debug.Log(inputComponent.direction.sqrMagnitude);
         movableComponent.isMoving = inputComponent.direction.sqrMagnitude > 0.1f;
