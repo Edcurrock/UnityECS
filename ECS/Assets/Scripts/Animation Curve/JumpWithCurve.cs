@@ -11,11 +11,22 @@ public class JumpWithCurve : MonoBehaviour
     float currentTime = 0;
     float totalTime;
     bool canPress = true;
+    bool jumping = false;
 
     private void Start() 
     {
         rigidbody = GetComponent<Rigidbody>();
         totalTime = jumpCurve.keys[jumpCurve.length-1].time;
+    }
+
+    private void Update() {
+
+        if (canPress)
+        {
+            jumping = Input.GetKeyDown("space");
+            canPress = !jumping;
+        }
+
     }
 
     private void FixedUpdate() 
@@ -30,9 +41,11 @@ public class JumpWithCurve : MonoBehaviour
             rigidbody.AddForce(direction.normalized,ForceMode.Impulse);
 
         }
-        
+
+       
         // print(canPress);
-        
+        if(jumping)
+        {
             var curPos = transform.position;
             
             curPos.y += jumpCurve.Evaluate(currentTime);
@@ -41,8 +54,18 @@ public class JumpWithCurve : MonoBehaviour
             if(currentTime >= totalTime)
             {
                 currentTime = 0;
+                canPress = true;
+                jumping = false;
             }
-        
-    }
+        }
+
+     
+            
+        }
+
+        private void OnDrawGizmos() {
+            Gizmos.DrawLine(transform.position, transform.right * 100f);
+        }
+    
 
 }
